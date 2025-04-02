@@ -1,0 +1,44 @@
+{
+  "incident_summary": {
+    "title": "Possible SNMP Enumeration Attempt",
+    "description": "An SNMP trap message with a wildcard OID ([**]) was detected, which could indicate an attempt to enumerate SNMP-accessible devices and information. This might be a precursor to further attacks targeting vulnerabilities within the network infrastructure.",
+    "attack_type": "Information Gathering/Reconnaissance",
+    "potential_impact": "Unauthorized disclosure of network device information, including device configuration, performance data, and network topology. This information could be leveraged for further attacks, such as targeted exploitation of vulnerabilities or denial-of-service attacks."
+  },
+  "evidence": {
+    "log_entry": "[1:1420:11] SNMP trap tcp [**]",
+    "timestamp": "03/12-17:14:40.822603",
+    "src_ip": "172.28.80.1",
+    "dest_ip": "172.28.83.69",
+    "dest_port": 162,
+    "classification": "Attempted Information Leak"
+  },
+  "recommendations": [
+    {
+      "action": "Investigate Source IP",
+      "details": "Determine the origin of the suspicious SNMP request (172.28.80.1). Check if this IP address is authorized to perform SNMP queries. If not, consider blocking traffic from this source."
+    },
+    {
+      "action": "Review SNMP Configuration",
+      "details": "Verify the SNMP configuration on the targeted device (172.28.83.69). Ensure that only necessary devices have access and that strong community strings (or SNMPv3 credentials) are in use. Disable SNMP if not required."
+    },
+    {
+      "action": "Implement Access Control Lists",
+      "details": "Configure Access Control Lists (ACLs) on network devices to restrict SNMP traffic to authorized management hosts only."
+    },
+    {
+      "action": "Monitor Network Traffic",
+      "details": "Continue to monitor network traffic for further suspicious SNMP activity and other indicators of compromise."
+    },
+    {
+      "action": "Enable SNMP Audit Logging",
+      "details": "Enable detailed SNMP audit logging to track all SNMP requests and identify potential malicious activity."
+    }
+  ],
+  "references": [
+    {
+      "source": "OWASP",
+      "url": "https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A3-Sensitive_Data_Exposure"
+    }
+  ]
+}
